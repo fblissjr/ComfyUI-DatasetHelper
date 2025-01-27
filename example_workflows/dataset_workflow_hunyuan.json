@@ -1,0 +1,637 @@
+{
+  "last_node_id": 166,
+  "last_link_id": 251,
+  "nodes": [
+    {
+      "id": 34,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        1135.159423828125,
+        -111.3252944946289
+      ],
+      "size": [
+        580.7774658203125,
+        334
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 226
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "HunyuanVideo",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "hyvideo1.mp4",
+            "subfolder": "",
+            "type": "output",
+            "format": "video/h264-mp4",
+            "frame_rate": 24,
+            "workflow": "hyvideo1.png",
+            "fullpath": "./output/hyvideo1.mp4"
+          },
+          "muted": false
+        }
+      }
+    },
+    {
+      "id": 146,
+      "type": "HyVideoDecode",
+      "pos": [
+        857.9430541992188,
+        -385.7627258300781
+      ],
+      "size": [
+        315,
+        150
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 224
+        },
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 225
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            226
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HyVideoDecode"
+      },
+      "widgets_values": [
+        true,
+        64,
+        256,
+        true
+      ]
+    },
+    {
+      "id": 128,
+      "type": "HyVideoSampler",
+      "pos": [
+        257.3323059082031,
+        -26.152128219604492
+      ],
+      "size": [
+        450.433837890625,
+        605.4404296875
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "HYVIDEOMODEL",
+          "link": 190
+        },
+        {
+          "name": "hyvid_embeds",
+          "type": "HYVIDEMBEDS",
+          "link": 220
+        },
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "stg_args",
+          "type": "STGARGS",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "context_options",
+          "type": "HYVIDCONTEXT",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "feta_args",
+          "type": "FETAARGS",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "teacache_args",
+          "type": "TEACACHEARGS",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "links": [
+            225
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HyVideoSampler"
+      },
+      "widgets_values": [
+        960,
+        544,
+        73,
+        20,
+        6,
+        8,
+        414148826433204,
+        "randomize",
+        true,
+        1,
+        "SDE-DPMSolverMultistepScheduler"
+      ]
+    },
+    {
+      "id": 143,
+      "type": "HyVideoTextEncode",
+      "pos": [
+        -511.01251220703125,
+        569.0733642578125
+      ],
+      "size": [
+        609.0546264648438,
+        388.04034423828125
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_encoders",
+          "type": "HYVIDTEXTENCODER",
+          "link": 222
+        },
+        {
+          "name": "custom_prompt_template",
+          "type": "PROMPT_TEMPLATE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "clip_l",
+          "type": "CLIP",
+          "link": 219,
+          "shape": 7
+        },
+        {
+          "name": "hyvid_cfg",
+          "type": "HYVID_CFG",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 250,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hyvid_embeds",
+          "type": "HYVIDEMBEDS",
+          "links": [
+            220
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HyVideoTextEncode"
+      },
+      "widgets_values": [
+        "In a medium shot, the camera movement is Static, capturing a green ogre, Shrek, with a relaxed posture and a happy smile. He holds a giant mug of hot coffee, savoring the moment. The background shows a snow-covered ski resort, with snow-covered mountains and lifts in the distance, creating a cozy winter atmosphere. The overall style is warm and tranquil, highlighting the peacefulness of winter. Warm lighting",
+        true,
+        "video"
+      ]
+    },
+    {
+      "id": 144,
+      "type": "DownloadAndLoadHyVideoTextEncoder",
+      "pos": [
+        -231.33718872070312,
+        -37.1191520690918
+      ],
+      "size": [
+        441,
+        202
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "hyvid_text_encoder",
+          "type": "HYVIDTEXTENCODER",
+          "links": [
+            222
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DownloadAndLoadHyVideoTextEncoder"
+      },
+      "widgets_values": [
+        "Kijai/llava-llama-3-8b-text-encoder-tokenizer",
+        "disabled",
+        "bf16",
+        false,
+        2,
+        "fp8_e4m3fn",
+        256
+      ]
+    },
+    {
+      "id": 135,
+      "type": "CLIPLoader",
+      "pos": [
+        -1152.5263671875,
+        862.300048828125
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            219
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "comfy-clip_l.safetensors",
+        "stable_diffusion",
+        "default"
+      ]
+    },
+    {
+      "id": 160,
+      "type": "Reroute",
+      "pos": [
+        -746.0804443359375,
+        43.65825271606445
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": null,
+          "widget": {
+            "name": "value"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "*",
+          "links": [
+            249
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": true,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 166,
+      "type": "DatasetBatchNode",
+      "pos": [
+        -1162.724609375,
+        227.84815979003906
+      ],
+      "size": [
+        315,
+        270
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "magic_number",
+          "type": "INT",
+          "link": 249,
+          "widget": {
+            "name": "magic_number"
+          }
+        },
+        {
+          "name": "text_input",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "text_input"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            250
+          ]
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DatasetBatchNode"
+      },
+      "widgets_values": [
+        "./data/mira/",
+        "combined_caption",
+        10,
+        0,
+        0,
+        false,
+        0,
+        "\\n",
+        ""
+      ]
+    },
+    {
+      "id": 103,
+      "type": "HyVideoVAELoader",
+      "pos": [
+        83.10621643066406,
+        -326.4519348144531
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "compile_args",
+          "type": "COMPILEARGS",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "links": [
+            224
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HyVideoVAELoader"
+      },
+      "widgets_values": [
+        "hunyuan_video_vae_bf16.safetensors",
+        "bf16"
+      ]
+    },
+    {
+      "id": 127,
+      "type": "HyVideoModelLoader",
+      "pos": [
+        -566.8297119140625,
+        -299.9988098144531
+      ],
+      "size": [
+        315,
+        242
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "compile_args",
+          "type": "COMPILEARGS",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "block_swap_args",
+          "type": "BLOCKSWAPARGS",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "lora",
+          "type": "HYVIDLORA",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "HYVIDEOMODEL",
+          "links": [
+            190
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HyVideoModelLoader"
+      },
+      "widgets_values": [
+        "mp_rank_00_model_states_fp8.pt",
+        "bf16",
+        "fp8_scaled",
+        "offload_device",
+        "flash_attn_varlen",
+        false,
+        true
+      ]
+    }
+  ],
+  "links": [
+    [
+      190,
+      127,
+      0,
+      128,
+      0,
+      "HYVIDEOMODEL"
+    ],
+    [
+      219,
+      135,
+      0,
+      143,
+      2,
+      "CLIP"
+    ],
+    [
+      220,
+      143,
+      0,
+      128,
+      1,
+      "HYVIDEMBEDS"
+    ],
+    [
+      222,
+      144,
+      0,
+      143,
+      0,
+      "HYVIDTEXTENCODER"
+    ],
+    [
+      224,
+      103,
+      0,
+      146,
+      0,
+      "VAE"
+    ],
+    [
+      225,
+      128,
+      0,
+      146,
+      1,
+      "LATENT"
+    ],
+    [
+      226,
+      146,
+      0,
+      34,
+      0,
+      "IMAGE"
+    ],
+    [
+      249,
+      160,
+      0,
+      166,
+      0,
+      "INT"
+    ],
+    [
+      250,
+      166,
+      0,
+      143,
+      4,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0152559799477494,
+      "offset": [
+        600.3043743115662,
+        676.357225623093
+      ]
+    },
+    "ue_links": [],
+    "node_versions": {
+      "ComfyUI-VideoHelperSuite": "f24f4e10f448913eb8c0d8ce5ff6190a8be84454",
+      "ComfyUI-HunyuanVideoWrapper": "1c966f0ee712a877afddd99c86eeb6a1be56c514",
+      "comfy-core": "0.3.12"
+    },
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0
+  },
+  "version": 0.4
+}
